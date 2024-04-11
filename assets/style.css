@@ -1,3 +1,44 @@
+#noContentMessage {
+    display: none;
+}
+
+body {
+    background-color: #000000;
+}
+
+header {
+    color: #ffffff;
+    text-align: center;
+}
+
+#cards {
+    background-color: #E23636;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card {
+    background-color: #518cca;
+    width: 15%;
+    padding: 1%;
+    text-align: center;
+    border-radius: 25px;
+    margin: 2% 0 2% 0;
+}
+
+.card img {
+    width: 75%;
+}
+
+.card button {
+    background-color: #F78F3F;
+}
+
+footer {
+    color: #ffffff;
+    text-align: center;
+}
 .image-size{
     height: 200px;
     width: 100px;
