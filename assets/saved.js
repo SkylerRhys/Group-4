@@ -1,0 +1,1 @@
+const savedCards = JSON.parse(localStorage.getItem('savedItems'));
