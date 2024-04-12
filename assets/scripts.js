@@ -1,15 +1,23 @@
 const rootEl = document.getElementById('comicData');
+const formSubmit = document.getElementById('submit');
 console.log(rootEl);
 function getMarvelApi() {
-
-    const marvelApiStart = "https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=thanos&orderBy=modified&apikey=";
+    const userInput = document.getElementById('userInput');
+    const marvelApiStart = "https://gateway.marvel.com:443/v1/public/characters?";
     const marvelPublicKey = '7493e7241069db22273aa9163a8086a6';
     const marvelPrivateKey = '0d7504ac031939ac69865b2724e7c563a6dcadc4';
-    const name = 'thor';
+    const nameStartsWith = userInput.value;
     const ts = new Date().getTime();
     const hash = md5(ts + marvelPrivateKey + marvelPublicKey);
-    const requestUrl = marvelApiStart + marvelPublicKey + "&ts=" + ts 
+    let requestUrl;
+
+    if (nameStartsWith === '') {
+        requestUrl = marvelApiStart + "apikey=" + marvelPublicKey + "&ts=" + ts 
         + "&hash=" + hash;
+    } else {
+        requestUrl = marvelApiStart + "nameStartsWith=" + nameStartsWith + "&apikey=" + marvelPublicKey + "&ts=" + ts 
+        + "&hash=" + hash;
+    }
     
     fetch(requestUrl)
     .then(function (response) {
@@ -37,5 +45,20 @@ function getMarvelApi() {
         }
     })
 
+    userInput.value = '';
+
 }
+
+function handleFormSubmit(event) {
+    event.preventDefault();
+
+    while (rootEl.firstChild) {
+        rootEl.removeChild(rootEl.firstChild);
+    }
+    
+    getMarvelApi();
+}
+
+formSubmit.addEventListener('click', handleFormSubmit);
+
 getMarvelApi();
