@@ -8,7 +8,7 @@ function getMarvelApi() {
     const name = 'thor';
     const ts = new Date().getTime();
     const hash = md5(ts + marvelPrivateKey + marvelPublicKey);
-    const requestUrl = marvelApiStart + marvelPublicKey + "&ts=" + ts 
+    const requestUrl = marvelApiStart + name+ marvelPublicKey + "&ts=" + ts 
         + "&hash=" + hash;
     
     fetch(requestUrl)
@@ -18,7 +18,7 @@ function getMarvelApi() {
     .then(function (data) {
         console.log(data);
         
-        for (const character of data) {
+        for (const character of data.results) {
             const imgTag = document.createElement('img');
             imgTag.setAttribute('src', `${character.data.results.thumbnail.path}.jpg`);
             rootEl.append(imgTag);
