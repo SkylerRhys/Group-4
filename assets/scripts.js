@@ -1,6 +1,15 @@
 const rootEl = document.getElementById('comicData');
 const formSubmit = document.getElementById('submit');
-console.log(rootEl);
+
+const comicCards = document.getElementsByClassName('card');
+
+function openDetailPage(e) {
+    window.location.href = "./detailed.html";
+
+    console.log(e.currentTarget.id);
+    localStorage.setItem('characterId', JSON.stringify(e.currentTarget.id));
+}
+
 function getMarvelApi() {
     const userInput = document.getElementById('userInput');
     const marvelApiStart = "https://gateway.marvel.com:443/v1/public/characters?";
@@ -32,6 +41,7 @@ function getMarvelApi() {
         for (const character of characterResults) {
             const comicCard = document.createElement('div');
             comicCard.setAttribute('class', 'card');
+            comicCard.setAttribute('id', character.id);
 
             const imgTag = document.createElement('img');
             imgTag.setAttribute('src', `${character.thumbnail.path}.${character.thumbnail.extension}`);
@@ -42,12 +52,44 @@ function getMarvelApi() {
             rootEl.append(comicCard);
             comicCard.append(imgTag);
             comicCard.append(characterName);
+           
+            comicCard.addEventListener('click', openDetailPage);
         }
     })
 
     userInput.value = '';
 
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const divs = document.querySelectorAll('.selectable');
+    let selectedIndex = 0;
+
+    function updateSelectedDiv() {
+        divs.forEach(div => {
+            div.classList.remove('highlighted');
+        });
+
+        divs[selectedIndex].classList.add('highlighted');
+    }
+
+    function selectLeft() {
+        selectedIndex = (selectedIndex - 1 + divs.length) % divs.length;
+        console.log('Left button clicked. selectedIndex:', selectedIndex);
+        updateSelectedDiv();
+    }
+
+    function selectRight() {
+        selectedIndex = (selectedIndex + 1) % divs.length;
+        console.log('Right button clicked. selectedIndex:', selectedIndex);
+        updateSelectedDiv();
+    }
+
+    document.getElementById('leftButton').addEventListener('click', selectLeft);
+    document.getElementById('rightButton').addEventListener('click', selectRight);
+
+    updateSelectedDiv();
+});
 
 function handleFormSubmit(event) {
     event.preventDefault();
@@ -59,6 +101,8 @@ function handleFormSubmit(event) {
     getMarvelApi();
 }
 
+
 formSubmit.addEventListener('click', handleFormSubmit);
+
 
 getMarvelApi();
