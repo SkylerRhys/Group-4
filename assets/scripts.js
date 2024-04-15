@@ -1,6 +1,15 @@
 const rootEl = document.getElementById('comicData');
 const formSubmit = document.getElementById('submit');
-console.log(rootEl);
+
+const comicCards = document.getElementsByClassName('card');
+
+function openDetailPage(e) {
+    window.location.href = "./detailed.html";
+
+    console.log(e.currentTarget.id);
+    localStorage.setItem('characterId', JSON.stringify(e.currentTarget.id));
+}
+
 function getMarvelApi() {
     const userInput = document.getElementById('userInput');
     const marvelApiStart = "https://gateway.marvel.com:443/v1/public/characters?";
@@ -32,6 +41,7 @@ function getMarvelApi() {
         for (const character of characterResults) {
             const comicCard = document.createElement('div');
             comicCard.setAttribute('class', 'card');
+            comicCard.setAttribute('id', character.id);
 
             const imgTag = document.createElement('img');
             imgTag.setAttribute('src', `${character.thumbnail.path}.${character.thumbnail.extension}`);
@@ -42,6 +52,8 @@ function getMarvelApi() {
             rootEl.append(comicCard);
             comicCard.append(imgTag);
             comicCard.append(characterName);
+           
+            comicCard.addEventListener('click', openDetailPage);
         }
     })
 
@@ -89,6 +101,8 @@ function handleFormSubmit(event) {
     getMarvelApi();
 }
 
+
 formSubmit.addEventListener('click', handleFormSubmit);
+
 
 getMarvelApi();
