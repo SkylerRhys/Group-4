@@ -62,6 +62,10 @@ nav a {
     padding: 1%;
 }
 
+.comicImage:hover {
+    cursor: pointer;
+}
+
 .card {
     display: none;
     background-color: #518cca;
