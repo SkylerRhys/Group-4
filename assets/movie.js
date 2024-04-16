@@ -34,7 +34,7 @@ function showMovies(data){
 
                 <div class="movie-info">
                     <h3>${title}</h3>
-                    <span class="${getVoteColor(vote_average)}">${vote_average}</span>
+                    <span class="${getVoteColor(vote_average)}">${vote_average.toFixed(1)}</span>
                 </div>
 
                 <div class="overview">
@@ -52,6 +52,7 @@ function showMovies(data){
 }
 
 function getVoteColor(vote){
+
 
     if(vote >=8) 
         return 'green'
