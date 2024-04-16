@@ -88,6 +88,37 @@ nav a {
     background-color: #F78F3F;
 }
 
+#characterDetails {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #E23636;
+    padding: 1%;
+}
+
+#characterDetails img {
+    height: 400px;
+    border-radius: 25px;
+}
+
+#charDescription {
+    width: 40%;
+    color: #ffffff;
+}
+
+#characterComics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #504a4a;
+}
+
+#characterComics .card {
+    width: 18%;
+    margin: 1% 0 1% 0;
+    padding: 1%;
+}
+
 footer {
     color: #ffffff;
     text-align: center;
