@@ -44,7 +44,7 @@ function getMarvelApi() {
             comicCard.setAttribute('id', character.id);
 
             const imgTag = document.createElement('img');
-            imgTag.setAttribute('src', `${character.thumbnail.path}.${character.thumbnail.extension}`);
+            imgTag.setAttribute('src', `${character.thumbnail.path}/standard_xlarge.${character.thumbnail.extension}`);
             imgTag.setAttribute('class', 'comicImage');
 
             const characterName = document.createElement('p');

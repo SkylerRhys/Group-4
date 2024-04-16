@@ -23,7 +23,7 @@ function appendCharacterDetails() {
 
         for (const character of characterResults) {
             const imgTag = document.createElement('img');
-            imgTag.setAttribute('src', `${character.thumbnail.path}.${character.thumbnail.extension}`);
+            imgTag.setAttribute('src', `${character.thumbnail.path}/portrait_fantastic.${character.thumbnail.extension}`);
             imgTag.setAttribute('class', 'titleImage');
 
             const charDescription = document.createElement('div');
@@ -33,7 +33,7 @@ function appendCharacterDetails() {
             h1Tag.textContent = character.name;
 
             const pTag = document.createElement('p');
-            pTag.textContent = character.description;
+            pTag.textContent = character.description || "No Data Available";
             
             detailRoot.append(imgTag);
             charDescription.append(h1Tag);
@@ -68,7 +68,7 @@ function appendCharacterComics() {
             comicCard.setAttribute('id', comic.id);
 
             const imgTag = document.createElement('img');
-            imgTag.setAttribute('src', `${comic.thumbnail.path}.${comic.thumbnail.extension}`);
+            imgTag.setAttribute('src', `${comic.thumbnail.path}/standard_xlarge.${comic.thumbnail.extension}`);
             imgTag.setAttribute('class', 'comicImage');
 
             const comicName = document.createElement('p');
