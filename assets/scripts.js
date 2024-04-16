@@ -56,6 +56,10 @@ function getMarvelApi() {
             comicCard.addEventListener('click', openDetailPage);
         }
     })
+    
+    .catch(function(error) {
+        console.error('Error fetching data:', error);
+    });
 
     userInput.value = '';
 
@@ -104,5 +108,16 @@ function handleFormSubmit(event) {
 
 formSubmit.addEventListener('click', handleFormSubmit);
 
+document.getElementById("userInput").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        submitForm();
+    }
+});
+
+function submitForm() {
+    document.getElementById("submit").click();
+}
 
 getMarvelApi();
+

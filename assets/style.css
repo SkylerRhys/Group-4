@@ -63,6 +63,7 @@ nav a {
 }
 
 .card {
+    display: none;
     background-color: #518cca;
     width: auto;
     padding: 10%;
@@ -122,4 +123,8 @@ nav a {
 footer {
     color: #ffffff;
     text-align: center;
+}
+
+.card:nth-child(-n+5) {
+    display: block;
 }
