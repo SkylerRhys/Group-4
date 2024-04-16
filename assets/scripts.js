@@ -61,6 +61,36 @@ function getMarvelApi() {
 
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const divs = document.querySelectorAll('.selectable');
+    let selectedIndex = 0;
+
+    function updateSelectedDiv() {
+        divs.forEach(div => {
+            div.classList.remove('highlighted');
+        });
+
+        divs[selectedIndex].classList.add('highlighted');
+    }
+
+    function selectLeft() {
+        selectedIndex = (selectedIndex - 1 + divs.length) % divs.length;
+        console.log('Left button clicked. selectedIndex:', selectedIndex);
+        updateSelectedDiv();
+    }
+
+    function selectRight() {
+        selectedIndex = (selectedIndex + 1) % divs.length;
+        console.log('Right button clicked. selectedIndex:', selectedIndex);
+        updateSelectedDiv();
+    }
+
+    document.getElementById('leftButton').addEventListener('click', selectLeft);
+    document.getElementById('rightButton').addEventListener('click', selectRight);
+
+    updateSelectedDiv();
+});
+
 function handleFormSubmit(event) {
     event.preventDefault();
 
