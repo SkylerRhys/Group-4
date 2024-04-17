@@ -4,6 +4,7 @@ const savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
 
 const comicCards = document.getElementsByClassName('card');
 
+// Open detail page on card click
 function openDetailPage(e) {
 
     const characterCard = e.target.parentElement;
@@ -23,7 +24,7 @@ function openDetailPage(e) {
     localStorage.setItem('characterId', JSON.stringify(e.target.parentElement.id));
 }
 
-
+// Use local storage to save cards
 function addToLocalStorage(e) {
     button = e.currentTarget;
     console.log(savedItems);
@@ -32,20 +33,21 @@ function addToLocalStorage(e) {
     button.replaceWith('Saved');
 }
 
+// Pull Marvel Api
 function getMarvelApi() {
-    const userInput = document.getElementById('userInput');
-    const marvelApiStart = "https://gateway.marvel.com:443/v1/public/characters?";
-    const marvelPublicKey = '7493e7241069db22273aa9163a8086a6';
+    const userInput = document.getElementById('userInput'); // pull from form
+    const marvelApiStart = "https://gateway.marvel.com:443/v1/public/characters?"; // Basic start for marvel API
+    const marvelPublicKey = '7493e7241069db22273aa9163a8086a6'; 
     const marvelPrivateKey = '0d7504ac031939ac69865b2724e7c563a6dcadc4';
-    const nameStartsWith = userInput.value;
+    const nameStartsWith = userInput.value; 
     const ts = new Date().getTime();
-    const hash = md5(ts + marvelPrivateKey + marvelPublicKey);
+    const hash = md5(ts + marvelPrivateKey + marvelPublicKey); // create a hash which the marvel API requires
     let requestUrl;
 
-    if (nameStartsWith === '') {
+    if (nameStartsWith === '') { // Generate basic URL if user input is empty
         requestUrl = marvelApiStart + "apikey=" + marvelPublicKey + "&ts=" + ts 
-        + "&hash=" + hash;
-    } else {
+        + "&hash=" + hash; 
+    } else { // Generate URL with user input
         requestUrl = marvelApiStart + "nameStartsWith=" + nameStartsWith + "&apikey=" + marvelPublicKey + "&ts=" + ts 
         + "&hash=" + hash;
     }
@@ -60,7 +62,7 @@ function getMarvelApi() {
         const characterResults = data.data.results;
         console.log(characterResults);
         
-        for (const character of characterResults) {
+        for (const character of characterResults) { // Make cards based on the Fetch
             const comicCard = document.createElement('div');
             comicCard.setAttribute('class', 'card');
             comicCard.setAttribute('id', character.id);
@@ -133,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function handleFormSubmit(event) {
     event.preventDefault();
 
-    while (rootEl.firstChild) {
+    while (rootEl.firstChild) { // Clear page
         rootEl.removeChild(rootEl.firstChild);
     }
     
