@@ -55,7 +55,7 @@ function getMarvelApi() {
             comicCard.setAttribute('id', character.id);
 
             const imgTag = document.createElement('img');
-            imgTag.setAttribute('src', `${character.thumbnail.path}.${character.thumbnail.extension}`);
+            imgTag.setAttribute('src', `${character.thumbnail.path}/standard_xlarge.${character.thumbnail.extension}`);
             imgTag.setAttribute('class', 'comicImage');
 
             const characterName = document.createElement('p');
@@ -67,6 +67,10 @@ function getMarvelApi() {
             comicCard.addEventListener('click', openDetailPage);
         }
     })
+    
+    .catch(function(error) {
+        console.error('Error fetching data:', error);
+    });
 
     userInput.value = '';
 
@@ -115,5 +119,16 @@ function handleFormSubmit(event) {
 
 formSubmit.addEventListener('click', handleFormSubmit);
 
+document.getElementById("userInput").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        submitForm();
+    }
+});
+
+function submitForm() {
+    document.getElementById("submit").click();
+}
 
 getMarvelApi();
+

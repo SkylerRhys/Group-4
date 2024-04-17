@@ -12,7 +12,7 @@ header {
     text-align: center;
     font-size: xx-large;
     padding: 3%;
-    border:5px solid #518cca
+    border:10px solid #518cca
 }
 
 nav {
@@ -23,8 +23,8 @@ nav {
 
 nav a {
     text-decoration: none;
-    color: #ffffff;
-    background-color: #F78F3F;
+    color: snow;
+    background-color:red ;
     font-size: 150%;
     padding: 0.5%;
     border-radius: 5px;
@@ -43,7 +43,7 @@ nav a {
 }
 
 #cards {
-    background-color: #E23636;
+    background-color:#518cca;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -63,6 +63,7 @@ nav a {
 }
 
 .card {
+    display: none;
     background-color: #518cca;
     width: auto;
     padding: 10%;
@@ -85,10 +86,58 @@ nav a {
 }
 
 .card button {
-    background-color: #F78F3F;
+    background-color: ghostwhite (0, 92%, 61%);
+    
+}
+
+.card-content {
+    font-family: fantasy;
+    color: white;
+
+}
+
+#characterDetails {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #E23636;
+    padding: 1%;
+}
+
+#characterDetails img {
+    height: 400px;
+    border-radius: 25px;
+}
+
+#charDescription {
+    width: 40%;
+    color: #ffffff;
+}
+
+#characterComics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #504a4a;
+}
+
+#characterComics .card {
+    width: 18%;
+    margin: 1% 0 1% 0;
+    padding: 1%;
 }
 
 footer {
     color: #ffffff;
     text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: medium;
+}
+
+.card-action {
+    color: turquoise;
+}
+
+.card:nth-child(-n+5) {
+    display: block;
 }
