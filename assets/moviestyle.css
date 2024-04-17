@@ -3,7 +3,8 @@
     --secondary-color:#003885 ;
 }
 
-*{ box-sizing: border-box;
+*{ 
+    box-sizing: border-box;
  }
 
 body{
@@ -12,12 +13,22 @@ body{
     margin: 0;
 }
 
-header{
-    padding: 1rem;
-    background-color: var(--secondary-color);
+
+header h2{
+    
+        font-size: 2rem;
+        margin: 0;
+        padding: 5px 10px;
+        background-color: #ffa602;
+        width: 100%;
+        overflow-x: hidden;
+        text-align: center;
+    
+    
 }
 
 .search-bar  {
+    display: none;
     padding: 0.5rem;
     background-color: transparent;
     border-radius: 20px;
@@ -50,6 +61,7 @@ main{
     background-color: var(--secondary-color);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
 
 }
 
@@ -60,14 +72,17 @@ main{
 .movie-info{
     color: azure;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 1rem 1rem;
     letter-spacing: 0.5px;
+    
 }
 
 .movie-info h3 {
     margin-top: 0;
+    text-align: center;
 }
 
 .movie-info span{
@@ -100,8 +115,62 @@ main{
     max-height:100%;
     transform: translateY(101%);
     transition: transform 0.3s ease-in;
+    
 }
 
 .movie:hover .overview{
     transform: translateY(0);
+}
+
+
+/* CHARACTER DESCRIPTION STYLING*/
+
+#characterDetails { 
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #003885;
+
+}
+
+.titleImage {
+    border: solid 10px #c30000;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: auto;           
+    max-width: 100%;       
+    height: auto;          
+    display: block;        
+    margin: auto;   
+    box-shadow: #000 5px 5px 5px;
+    z-index: 1;
+}
+
+
+
+h1 {
+    font-size: 3rem;
+    margin-top: 0; 
+    background-color: #c30000;
+    box-sizing: border-box;  
+    width: 50%;  
+    border:  5px solid #c30000;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: #0000007c 5px 5px 5px;
+    text-align: center;
+    text-shadow: #ffa602 1px 3px 0.3px ;
+}
+
+
+p {
+    background-color: #000;
+    border: #ffa602 solid;
+    padding: 1rem ;
+    color: #ffffff;
+    margin: auto;
+
+
 }

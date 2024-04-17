@@ -4,10 +4,21 @@ const formSubmit = document.getElementById('submit');
 const comicCards = document.getElementsByClassName('card');
 
 function openDetailPage(e) {
-    window.location.href = "./detailed.html";
 
-    console.log(e.currentTarget.id);
-    localStorage.setItem('characterId', JSON.stringify(e.currentTarget.id));
+    const characterCard = e.currentTarget;
+    const characterName = characterCard.querySelector('p').textContent; 
+    const characterId = characterCard.id; 
+
+    
+    console.log(`Character ID: ${characterId}, Character Name: ${characterName}`);
+
+    // Store both character ID and name
+    localStorage.setItem('characterId', JSON.stringify(characterId)); // Storing ID for comic details
+    localStorage.setItem('characterName', characterName); // Storing name for movie queries
+
+    window.location.href = "./detailed.html"; 
+
+
 }
 
 function getMarvelApi() {
