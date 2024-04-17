@@ -1,11 +1,12 @@
 const rootEl = document.getElementById('comicData');
 const formSubmit = document.getElementById('submit');
+const savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
 
 const comicCards = document.getElementsByClassName('card');
 
 function openDetailPage(e) {
 
-    const characterCard = e.currentTarget;
+    const characterCard = e.target.parentElement;
     const characterName = characterCard.querySelector('p').textContent; 
     const characterId = characterCard.id; 
 
@@ -18,7 +19,17 @@ function openDetailPage(e) {
 
     window.location.href = "./detailed.html"; 
 
+    console.log(e.target.parentElement.id);
+    localStorage.setItem('characterId', JSON.stringify(e.target.parentElement.id));
+}
 
+
+function addToLocalStorage(e) {
+    button = e.currentTarget;
+    console.log(savedItems);
+    savedItems.push(e.target.parentElement.id);
+    localStorage.setItem('savedItems', JSON.stringify(savedItems));
+    button.replaceWith('Saved');
 }
 
 function getMarvelApi() {
@@ -60,11 +71,24 @@ function getMarvelApi() {
 
             const characterName = document.createElement('p');
             characterName.textContent = character.name;
+            
+            const saveButton = document.createElement('button');
+            saveButton.textContent = "Save";
+
+            const alreadySaved = document.createElement('p');
+            alreadySaved.textContent = "Saved";
+
             rootEl.append(comicCard);
             comicCard.append(imgTag);
             comicCard.append(characterName);
+            if (savedItems.indexOf(comicCard.id) !== -1) {
+                comicCard.append(alreadySaved);
+            } else {
+                comicCard.append(saveButton);
+                saveButton.addEventListener('click', addToLocalStorage);
+            }
            
-            comicCard.addEventListener('click', openDetailPage);
+            imgTag.addEventListener('click', openDetailPage);
         }
     })
     
