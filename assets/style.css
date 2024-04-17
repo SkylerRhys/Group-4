@@ -131,6 +131,23 @@ nav a {
     padding: 1%;
 }
 
+#savedCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.userCards {
+    display: block;
+    width: 18%;
+    padding: 1%;
+    margin: 1% 0 1% 0;
+}
+
+.userCards img:hover {
+    cursor: pointer;
+}
+
 footer {
     color: #ffffff;
     text-align: center;

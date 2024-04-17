@@ -2,6 +2,34 @@ const savedCardsRoot = document.getElementById('savedCards');
 const savedCards = JSON.parse(localStorage.getItem('savedItems'));
 console.log(savedCards);
 
+function savedDetail(e) {
+    const characterCard = e.target.parentElement;
+    const characterName = characterCard.querySelector('p').textContent; 
+    const characterId = characterCard.id; 
+
+    
+    console.log(`Character ID: ${characterId}, Character Name: ${characterName}`);
+
+    // Store both character ID and name
+    localStorage.setItem('characterId', JSON.stringify(characterId)); // Storing ID for comic details
+    localStorage.setItem('characterName', characterName); // Storing name for movie queries
+
+    window.location.href = "./detailed.html"; 
+
+    console.log(e.target.parentElement.id);
+    localStorage.setItem('characterId', JSON.stringify(e.target.parentElement.id));
+}
+
+function handleDelete(e) {
+    characterCard = e.target.parentElement;
+    savedCards.pop(characterCard.id);
+    localStorage.setItem('savedItems', JSON.stringify(savedCards));
+    while (savedCardsRoot.firstChild) {
+        savedCardsRoot.removeChild(savedCardsRoot.firstChild);
+    }
+    parseArray();
+}
+
 function addSavedCards(characterId) {
     const characterUrlStart = `https://gateway.marvel.com:443/v1/public/characters/${characterId}?`
     const marvelPublicKey = '7493e7241069db22273aa9163a8086a6';
@@ -22,27 +50,36 @@ function addSavedCards(characterId) {
         console.log(characterResults);
 
         for (const character of characterResults) {
+
+            const savedCard = document.createElement('div');
+            savedCard.setAttribute('class', 'userCards card');
+            savedCard.setAttribute('id', characterId);
+
             const imgTag = document.createElement('img');
             imgTag.setAttribute('src', `${character.thumbnail.path}/portrait_fantastic.${character.thumbnail.extension}`);
             imgTag.setAttribute('class', 'titleImage');
 
-            const charDescription = document.createElement('div');
-            charDescription.setAttribute('id', 'charDescription');
+            const name = document.createElement('p');
+            name.textContent = character.name;
 
-            const h1Tag = document.createElement('h1');
-            h1Tag.textContent = character.name;
-
-            const pTag = document.createElement('p');
-            pTag.textContent = character.description || "No Data Available";
+            const button = document.createElement('button');
+            button.textContent = 'Delete';
             
-            savedCardsRoot.append(imgTag);
-            charDescription.append(h1Tag);
-            charDescription.append(pTag);
-            savedCardsRoot.append(charDescription);
+            savedCard.append(imgTag);
+            savedCard.append(name);
+            savedCard.append(button);
+            savedCardsRoot.append(savedCard);
+
+            imgTag.addEventListener('click', savedDetail);
+            button.addEventListener('click', handleDelete);
         }
     });
 }
 
-for (const id of savedCards) {
-    addSavedCards(id);
+function parseArray() {
+    for (const id of savedCards) {
+        addSavedCards(id);
+    }
 }
+
+parseArray();

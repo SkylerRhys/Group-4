@@ -6,7 +6,7 @@ const comicCards = document.getElementsByClassName('card');
 
 function openDetailPage(e) {
 
-    const characterCard = e.currentTarget;
+    const characterCard = e.target.parentElement;
     const characterName = characterCard.querySelector('p').textContent; 
     const characterId = characterCard.id; 
 
