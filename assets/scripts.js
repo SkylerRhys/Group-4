@@ -5,7 +5,19 @@ const savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
 const comicCards = document.getElementsByClassName('card');
 
 function openDetailPage(e) {
-    window.location.href = "./detailed.html";
+
+    const characterCard = e.currentTarget;
+    const characterName = characterCard.querySelector('p').textContent; 
+    const characterId = characterCard.id; 
+
+    
+    console.log(`Character ID: ${characterId}, Character Name: ${characterName}`);
+
+    // Store both character ID and name
+    localStorage.setItem('characterId', JSON.stringify(characterId)); // Storing ID for comic details
+    localStorage.setItem('characterName', characterName); // Storing name for movie queries
+
+    window.location.href = "./detailed.html"; 
 
     console.log(e.target.parentElement.id);
     localStorage.setItem('characterId', JSON.stringify(e.target.parentElement.id));
