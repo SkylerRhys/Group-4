@@ -22,7 +22,7 @@ function savedDetail(e) {
 
 function handleDelete(e) { // Delete card from array and repopulate page
     characterCard = e.target.parentElement;
-    savedCards.pop(characterCard.id);
+    savedCards.splice(savedCards.indexOf(characterCard.id), 1);
     localStorage.setItem('savedItems', JSON.stringify(savedCards));
     while (savedCardsRoot.firstChild) {
         savedCardsRoot.removeChild(savedCardsRoot.firstChild);
