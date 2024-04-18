@@ -1,8 +1,9 @@
 const rootEl = document.getElementById('comicData');
 const formSubmit = document.getElementById('submit');
 const savedItems = JSON.parse(localStorage.getItem('savedItems')) || [];
-
 const comicCards = document.getElementsByClassName('card');
+var onSubmit =  document.querySelector("#submit");
+
 
 // Open detail page on card click
 function openDetailPage(e) {
@@ -33,6 +34,9 @@ function addToLocalStorage(e) {
     button.replaceWith('Saved');
 }
 
+let offset = 0;
+const limit = 5;
+
 // Pull Marvel Api
 function getMarvelApi() {
     const userInput = document.getElementById('userInput'); // pull from form
@@ -44,13 +48,15 @@ function getMarvelApi() {
     const hash = md5(ts + marvelPrivateKey + marvelPublicKey); // create a hash which the marvel API requires
     let requestUrl;
 
-    if (nameStartsWith === '') { // Generate basic URL if user input is empty
+    if (nameStartsWith === '') { 
         requestUrl = marvelApiStart + "apikey=" + marvelPublicKey + "&ts=" + ts 
-        + "&hash=" + hash; 
-    } else { // Generate URL with user input
+        + "&hash=" + hash + `&offset=${offset}&limit=${limit}`; 
+    } else { 
         requestUrl = marvelApiStart + "nameStartsWith=" + nameStartsWith + "&apikey=" + marvelPublicKey + "&ts=" + ts 
         + "&hash=" + hash;
     }
+    
+
     
     fetch(requestUrl)
     .then(function (response) {
@@ -98,39 +104,28 @@ function getMarvelApi() {
         console.error('Error fetching data:', error);
     });
 
-    userInput.value = '';
+ //   userInput.value = '';
 
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const divs = document.querySelectorAll('.selectable');
-    let selectedIndex = 0;
+// Navigation Function to see Search Results
+function showNextCharacters() {
+    offset += limit;
+    console.log('Offset after increment:', offset);
+    getMarvelApi();
+}
 
-    function updateSelectedDiv() {
-        divs.forEach(div => {
-            div.classList.remove('highlighted');
-        });
-
-        divs[selectedIndex].classList.add('highlighted');
+function showPreviousCharacters() {
+    if (offset >= limit) {
+        offset -= limit;
+        console.log('Offset after decrement:', offset);
+        getMarvelApi();
     }
+}
 
-    function selectLeft() {
-        selectedIndex = (selectedIndex - 1 + divs.length) % divs.length;
-        console.log('Left button clicked. selectedIndex:', selectedIndex);
-        updateSelectedDiv();
-    }
+document.getElementById('leftButton').addEventListener('click', showPreviousCharacters);
+document.getElementById('rightButton').addEventListener('click', showNextCharacters);
 
-    function selectRight() {
-        selectedIndex = (selectedIndex + 1) % divs.length;
-        console.log('Right button clicked. selectedIndex:', selectedIndex);
-        updateSelectedDiv();
-    }
-
-    document.getElementById('leftButton').addEventListener('click', selectLeft);
-    document.getElementById('rightButton').addEventListener('click', selectRight);
-
-    updateSelectedDiv();
-});
 
 function handleFormSubmit(event) {
     event.preventDefault();
@@ -157,4 +152,9 @@ function submitForm() {
 }
 
 getMarvelApi();
+
+onSubmit.addEventListener("click", function () {
+    var closeButton = document.querySelector(".btn-close");
+    closeButton.click();
+});
 

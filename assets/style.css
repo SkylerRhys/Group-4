@@ -162,3 +162,9 @@ footer {
 .card:nth-child(-n+5) {
     display: block;
 }
+
+.card:hover {
+    border: 2px solid rgb(250, 246, 4); /* Change border color */
+    box-shadow: 0px 0px 5px 0px rgba(0,0,255,0.75); /* Add box shadow */
+    cursor: pointer;
+}
