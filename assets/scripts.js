@@ -53,7 +53,7 @@ function getMarvelApi() {
         + "&hash=" + hash + `&offset=${offset}&limit=${limit}`; 
     } else { 
         requestUrl = marvelApiStart + "nameStartsWith=" + nameStartsWith + "&apikey=" + marvelPublicKey + "&ts=" + ts 
-        + "&hash=" + hash;
+        + "&hash=" + hash + `&offset=${offset}&limit=${limit}`;
     }
     
 
@@ -112,6 +112,7 @@ function getMarvelApi() {
 function showNextCharacters() {
     offset += limit;
     console.log('Offset after increment:', offset);
+    clearComicCards();
     getMarvelApi();
 }
 
@@ -119,6 +120,7 @@ function showPreviousCharacters() {
     if (offset >= limit) {
         offset -= limit;
         console.log('Offset after decrement:', offset);
+        clearComicCards();
         getMarvelApi();
     }
 }
@@ -126,6 +128,12 @@ function showPreviousCharacters() {
 document.getElementById('leftButton').addEventListener('click', showPreviousCharacters);
 document.getElementById('rightButton').addEventListener('click', showNextCharacters);
 
+// This function clears the cards to populate the next or prev results.
+function clearComicCards() {
+    while (rootEl.firstChild) {
+        rootEl.removeChild(rootEl.firstChild);
+    }
+}
 
 function handleFormSubmit(event) {
     event.preventDefault();
