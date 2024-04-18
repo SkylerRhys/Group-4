@@ -20,7 +20,7 @@ function savedDetail(e) {
     localStorage.setItem('characterId', JSON.stringify(e.target.parentElement.id));
 }
 
-function handleDelete(e) {
+function handleDelete(e) { // Delete card from array and repopulate page
     characterCard = e.target.parentElement;
     savedCards.pop(characterCard.id);
     localStorage.setItem('savedItems', JSON.stringify(savedCards));
@@ -30,7 +30,7 @@ function handleDelete(e) {
     parseArray();
 }
 
-function addSavedCards(characterId) {
+function addSavedCards(characterId) { // fetch individual cards
     const characterUrlStart = `https://gateway.marvel.com:443/v1/public/characters/${characterId}?`
     const marvelPublicKey = '7493e7241069db22273aa9163a8086a6';
     const marvelPrivateKey = '0d7504ac031939ac69865b2724e7c563a6dcadc4';
@@ -76,7 +76,7 @@ function addSavedCards(characterId) {
     });
 }
 
-function parseArray() {
+function parseArray() { // cycle through array and run addSavedCards
     for (const id of savedCards) {
         addSavedCards(id);
     }
